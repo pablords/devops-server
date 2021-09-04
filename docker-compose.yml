@@ -1,0 +1,35 @@
+version: "3.4"
+
+services: 
+
+  gitlab:
+    container_name: gitlab
+    image: gitlab/gitlab-ee:latest
+    restart: always
+    env_file: ./.env
+    hostname: '$SERVER'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://$SERVER:$GIT_LAB_HTTP_PORT'
+        gitlab_rails['gitlab_shell_ssh_port'] = $GIT_LAB_SSH_PORT
+    ports:
+      - '$GIT_LAB_SSH_PORT:22'
+      - '$GIT_LAB_HTTP_PORT:80'
+      - '$GIT_LAB_DB_PORT:443'
+    volumes:
+      -  ./gitlab-data/config:/etc/gitlab
+      -  ./gitlab-data/logs:/var/log/gitlab
+      -  ./gitlab-data/data:/var/opt/gitlab
+
+  runner:
+    container_name: runner
+    image: gitlab/gitlab-runner:latest
+    restart: always
+    depends_on: 
+      - gitlab
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - gitlab-runner-config:/etc/gitlab-runner
+      
+volumes:
+  gitlab-runner-config:
