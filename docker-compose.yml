@@ -7,7 +7,7 @@ services:
     image: gitlab/gitlab-ee:latest
     restart: always
     env_file: ./.env
-    hostname: '$SERVER'
+    hostname: ${SERVER}
     ports:
       - '$GIT_LAB_SSH_PORT:22'
       - '$GIT_LAB_HTTP_PORT:80'
