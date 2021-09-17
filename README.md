@@ -1,0 +1,1 @@
+# --admin-password-file '/data portainer/ portainer/portainer-ce/senha-portainer

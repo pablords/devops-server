@@ -1,9 +1,7 @@
 #!/bin/bash
 
-export GITLAB_HOME=~/gitlab-server/data
 
+echo -n dev123456 >./portainer_data/senha-portainer
+export GITLAB_HOME=~/devops-server/gitlab-server
 source ~/.bashrc
-
-docker-compose up -d
-
-docker logs -ft --tail=1000 gitlab 
+sudo rm -rf certificados &&  docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml up -d

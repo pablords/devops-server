@@ -1,4 +1,5 @@
-/data
+/gitlab-server
 /certificados
 .env
 /docker-registry
+/portainer_data

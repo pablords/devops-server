@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+
+  gitlab:
+    container_name: gitlab
+    image: gitlab/gitlab-ee:latest
+    restart: always
+    env_file: ./.env
+    hostname: ${SERVER}:${GITLAB_HTTP_PORT}
+    ports:
+      - ${GITLAB_SSH_PORT}:${GITLAB_SSH_PORT}
+      - ${GITLAB_HTTP_PORT}:${GITLAB_HTTP_PORT}
+      - ${GITLAB_HTTPS_PORT}:${GITLAB_HTTPS_PORT}
+    expose: 
+      - ${GITLAB_SSH_PORT}
+      - ${GITLAB_HTTP_PORT}
+      - ${GITLAB_HTTPS_PORT}
+    volumes:
+      - ${GITLAB_HOME}/config:/etc/gitlab
+      - ${GITLAB_HOME}/logs:/var/log/gitlab
+      - ${GITLAB_HOME}/data:/var/opt/gitlab
+
+  gitlab-runner:
+    depends_on: 
+      - gitlab
+    container_name: runner
+    image: gitlab/gitlab-runner:alpine
+    volumes:
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  docker-registry:
+    container_name: docker-registry
+    image: registry:2
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+    volumes:
+      - ./docker-registry/data:/data
+      - ./certificados/default_server:/certs
+    restart: always
+    ports:
+      - ${DOCKER_REGISTY}:${DOCKER_REGISTY}
+    expose: 
+      - ${DOCKER_REGISTY}
+  
+ 

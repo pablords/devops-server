@@ -1,0 +1,14 @@
+version: '3.6'
+
+services:
+  portainer-server:
+    image: portainer/portainer
+    container_name: portainer
+    restart: always
+    command: --admin-password-file '/data portainer/ portainer/portainer-ce/senha-portainer'
+    ports: 
+      - ${PORTAINER_HTTP_PORT}:${PORTAINER_HTTP_PORT}
+      - ${PORTAINER_SERVER_PORT}:${PORTAINER_SERVER_PORT}
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer_data:/data portainer/ portainer/portainer-ce
