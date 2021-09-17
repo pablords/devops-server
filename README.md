@@ -1,1 +1,6 @@
-# --admin-password-file '/data portainer/ portainer/portainer-ce/senha-portainer
+# configurações basicas devops desenvolvimento
+
+- servidor gitlab 
+- gitlab-runner 
+- nginx com https
+- portainer
