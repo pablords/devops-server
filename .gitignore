@@ -1,1 +1,4 @@
 /data
+/certificados
+.env
+/docker-registry

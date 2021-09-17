@@ -1,14 +1,14 @@
 include .env
 
 .PHONY: up
-up-dev:
+up:
 	docker-compose up -d
 
 .PHONY: down
-down-dev:
+down:
 	docker-compose down
 
 
 .PHONY: logs
-down-dev:
+logs:
 	docker-compose logs
