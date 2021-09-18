@@ -7,15 +7,14 @@ services:
     image: gitlab/gitlab-ee:latest
     restart: always
     env_file: ./.env
-    hostname: ${SERVER}:${GITLAB_HTTP_PORT}
+    hostname: ${HOST}:${GITLAB_HTTP_PORT}
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_SSH_PORT}
     ports:
-      - ${GITLAB_SSH_PORT}:${GITLAB_SSH_PORT}
+      - ${GITLAB_SSH_PORT}:22
       - ${GITLAB_HTTP_PORT}:${GITLAB_HTTP_PORT}
-      - ${GITLAB_HTTPS_PORT}:${GITLAB_HTTPS_PORT}
-    expose: 
-      - ${GITLAB_SSH_PORT}
-      - ${GITLAB_HTTP_PORT}
-      - ${GITLAB_HTTPS_PORT}
+      - ${GITLAB_HTTPS_PORT}:443
     volumes:
       - ${GITLAB_HOME}/config:/etc/gitlab
       - ${GITLAB_HOME}/logs:/var/log/gitlab
@@ -33,15 +32,16 @@ services:
   docker-registry:
     container_name: docker-registry
     image: registry:2
+    env_file: ./.env
     environment:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     volumes:
-      - ./docker-registry/data:/data
+      - ${DOCKER_REGISTRY_HOME}/data:/data
       - ./certificados/default_server:/certs
     restart: always
     ports:
-      - ${DOCKER_REGISTY}:${DOCKER_REGISTY}
+      - ${DOCKER_REGISTRY_PORT}:5000
     expose: 
-      - ${DOCKER_REGISTY}
+      - 5000
   
  

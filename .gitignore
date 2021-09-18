@@ -3,3 +3,4 @@
 .env
 /docker-registry
 /portainer_data
+/jenkins

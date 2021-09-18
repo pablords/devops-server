@@ -1,14 +1,20 @@
-include .env
+
 
 .PHONY: up
 up: 
-	sudo rm -rf certificados &&  docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml up -d
+	./up.sh
+
+.PHONY: stop
+stop: 
+	./stop.sh
+
 .PHONY: down
 down:
-	docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml down
+	docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml -f jenkins.yml down
+
 .PHONY: logs
 logs:
-	docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml logs -ft --tail=1000
+	./logs.sh
 
 .PHONY: configure
 configure:
