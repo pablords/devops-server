@@ -5,3 +5,5 @@
 - docker registry
 - nginx com https
 - portainer
+- jenkins
+
