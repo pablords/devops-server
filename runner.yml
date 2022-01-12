@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  gitlab-runner:
+    depends_on: 
+      - gitlab
+    container_name: runner
+    image: gitlab/gitlab-runner:alpine
+    volumes:
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock

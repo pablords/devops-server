@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose -f http-server.yml -f gitlab.yml -f portainer.yml -f jenkins.yml up -d
+docker-compose -f gitlab.yml -f portainer.yml -f jenkins.yml -f registry.yml -f nexus.yml up -d

@@ -1,6 +1,5 @@
-/gitlab-server
-/certificados
-.env
-/docker-registry
-/portainer_data
-/jenkins
+/gitlab
+/registry
+/portainer
+/jenkins-server
+/nexus

@@ -1,8 +1,8 @@
 # configurações basicas devops desenvolvimento
 
 - servidor gitlab 
-- gitlab-runner 
-- docker registry
+- registry-docker
 - portainer
 - jenkins
+- nexus
 
